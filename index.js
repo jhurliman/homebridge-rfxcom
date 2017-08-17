@@ -49,7 +49,9 @@ RFXComPlatform.prototype.didFinishLaunching = function() {
   if (this.rfyRemotes.length) {
     // Compare local config against RFXCom-registered remotes
     this.listRFYRemotes().then(deviceRemotes => {
-      this.remotes.forEach(remote => {
+      this.log(`Received ${deviceRemotes.length} remote(s) from device`)
+
+      this.rfyRemotes.forEach(remote => {
         // Handle different capitalizations of deviceID
         remote.deviceID = remote.deviceID || remote.deviceId
 
