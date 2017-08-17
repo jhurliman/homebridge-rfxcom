@@ -1,0 +1,29 @@
+{
+  "name": "homebridge-rfxcom",
+  "version": "0.0.1",
+  "description": "Homebridge plugin for RFXtrx433(E) transceivers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhurliman/homebridge-rfxcom.git"
+  },
+  "author": "John Hurliman <jhurliman@jhurliman.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jhurliman/homebridge-rfxcom/issues"
+  },
+  "homepage": "https://github.com/jhurliman/homebridge-rfxcom#readme",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=6.0.0",
+    "homebridge": ">=0.4.21"
+  },
+  "dependencies": {
+    "rfxcom": "^0.16.1"
+  }
+}
