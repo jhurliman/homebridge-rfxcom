@@ -153,8 +153,8 @@ RFXComPlatform.prototype.addRFYRemoteSwitch = function(remote, device, type) {
 
   // Setup event listeners
   accessory
-    .on('identify', callback => {
-      this.log(`${name} identify requested!`)
+    .on('identify', (paired, callback) => {
+      this.log(`${name} identify requested, paired=${paired}`)
       callback()
     })
     .getService(Service.Switch)
