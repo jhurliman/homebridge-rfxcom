@@ -16,13 +16,13 @@ module.exports = function(homebridge) {
 }
 
 function RFXComPlatform(log, config, api) {
+  const rfyRemotes = this.config.rfyRemotes || this.config.rfyremotes
+
   this.log = log
   this.config = config || { platform: 'RFXCom' }
   this.tty = this.config.tty || '/dev/ttyUSB0'
   this.debug = this.config.debug || false
-  this.rfyRemotes = Array.isArray(this.config.rfyRemotes)
-    ? this.config.rfyRemotes
-    : []
+  this.rfyRemotes = Array.isArray(rfyRemotes) ? rfyRemotes : []
 
   this.accessories = {}
 
