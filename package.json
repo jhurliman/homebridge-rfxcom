@@ -1,6 +1,6 @@
 {
   "name": "homebridge-rfxcom",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Homebridge plugin for RFXtrx433(E) transceivers.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,21 @@
   },
   "homepage": "https://github.com/jhurliman/homebridge-rfxcom#readme",
   "keywords": [
-    "homebridge-plugin"
+    "homebridge-plugin",
+    "rfxcom",
+    "rfxtrx",
+    "rfxtrx433",
+    "rfxtrx433e",
+    "433",
+    "somfy",
+    "rts",
+    "rfy",
+    "homebridge",
+    "homekit",
+    "window",
+    "blinds",
+    "awning",
+    "remote"
   ],
   "engines": {
     "node": ">=6.0.0",
