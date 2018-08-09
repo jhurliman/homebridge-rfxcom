@@ -31,3 +31,13 @@ Homebridge plugin for [RFXtrx433(E)](http://www.rfxcom.com/RFXtrx433E-USB-43392M
    in the RFXMngr setup program (Windows only).
  - **openCloseSeconds** - Number of seconds it takes for the blinds/awning/etc
    to fully open or close.
+
+
+
+###  Troubleshooting
+
+##### ERROR: RFXtrx connect fail
+
+Edit `/usr/local/lib/node_modules/homebridge-rfxcom/index.js` by adding the correct TTY port name on the line: `this.tty = this.config.tty || '/dev/tty.usbserial-XXXX`
+
+The port name can be found in `/dev/`
