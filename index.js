@@ -1,4 +1,6 @@
 const rfxcom = require('rfxcom')
+const http = require('http')
+const url = require('url')
 
 const PLUGIN_ID = 'homebridge-rfxcom'
 const PLUGIN_NAME = 'RFXCom'
@@ -20,6 +22,7 @@ function RFXComPlatform(log, config, api) {
   this.config = config || { platform: 'RFXCom' }
   this.tty = this.config.tty || '/dev/ttyUSB0'
   this.debug = this.config.debug || false
+  this.exposeApi = this.config.exposeApi || true
 
   const rfyRemotes = this.config.rfyRemotes || this.config.rfyremotes
   this.rfyRemotes = Array.isArray(rfyRemotes) ? rfyRemotes : []
@@ -35,6 +38,56 @@ function RFXComPlatform(log, config, api) {
   if (api) {
     this.api = api
     this.api.on('didFinishLaunching', this.didFinishLaunching.bind(this))
+  }
+
+  if (this.exposeApi) {
+    this.apiPort = this.config.apiPort || 18081
+
+    http.createServer((request, response) => {
+      response.setHeader('Access-Control-Allow-Origin', '*')
+      response.setHeader('Access-Control-Request-Method', '*')
+      response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET')
+      response.setHeader('Access-Control-Allow-Headers', '*')
+
+      const theUrl = request.url
+      const theUrlParts = url.parse(theUrl, true)
+      const theUrlParams = theUrlParts.query
+      let body = []
+
+      request.on('data', (chunk) => {
+        body.push(chunk)
+      }).on('end', () => {
+        body = Buffer.concat(body).toString()
+
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'application/json')
+
+        let responseBody = {
+          success: true
+        }
+
+        const { remoteName, direction } = theUrlParams
+
+        const remote = rfyRemotes.find(({ name }) => name === remoteName)
+
+        if (!remote) {
+          responseBody.success = false
+        } else {
+          const { deviceID } = remote
+
+          if (direction === 'up') {
+            this.rfy.up(deviceID)
+          } else if (direction === 'down') {
+            this.rfy.down(deviceID)
+          } else if (direction === 'stop') {
+            this.rfy.stop(deviceID)
+          }
+        }
+
+        response.write(JSON.stringify(responseBody))
+        response.end()
+      })
+    }).listen(this.apiPort, () => this.log('Server listening on port ' + this.apiPort))
   }
 }
 
