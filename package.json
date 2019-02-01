@@ -38,6 +38,6 @@
     "homebridge": ">=0.4.21"
   },
   "dependencies": {
-    "rfxcom": "^0.16.1"
+    "rfxcom": "^1.4.1"
   }
 }
