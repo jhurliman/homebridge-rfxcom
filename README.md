@@ -77,7 +77,7 @@ npm test
 npm pack
 ```
 
-Seven tests use Homebridge's actual services and the current RFY command encoder with simulated serial acknowledgements. They cover empty configurations, ID normalization/cache reuse, ACK/NAK handling, automatic versus persistent switch state, shutdown, and validation. Tests never open a serial port or move a motor. Before publishing, verify serial initialization and paired-remote listing on real supported hardware; command checks should target a deliberately selected motor.
+Eight tests use Homebridge's actual services and the current RFY command encoder, transmit queue, and response parser with simulated serial bytes. They cover empty configurations, ID normalization/cache reuse, ACK/NAK handling, automatic versus persistent switch state, shutdown, and validation. Tests never open a serial port or move a motor. Before publishing, verify serial initialization and paired-remote listing on real supported hardware; command checks should target a deliberately selected motor.
 
 ## License
 
