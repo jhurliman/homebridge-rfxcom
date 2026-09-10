@@ -1,0 +1,50 @@
+{
+  "pluginAlias": "RFXCom",
+  "pluginType": "platform",
+  "singular": true,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "default": "RFXCOM"
+      },
+      "tty": {
+        "type": "string",
+        "default": "/dev/ttyUSB0"
+      },
+      "debug": {
+        "type": "boolean",
+        "default": false
+      },
+      "rfyRemotes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "required": true
+            },
+            "deviceID": {
+              "type": "string",
+              "required": true,
+              "pattern": "^0[xX][0-9a-fA-F]{1,6}/[0-4]$"
+            },
+            "openCloseSeconds": {
+              "type": "number",
+              "default": 5,
+              "exclusiveMinimum": 0,
+              "maximum": 3600
+            },
+            "autoReset": {
+              "type": "boolean",
+              "default": true,
+              "description": "Turn the command switch off after the configured duration; this does not send Stop."
+            }
+          }
+        }
+      }
+    }
+  }
+}
