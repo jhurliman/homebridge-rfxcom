@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const rfxcom = require('rfxcom');
+const realQueueMessage = rfxcom.RfxCom.prototype.queueMessage;
 const remote = { name: 'Awning', deviceID: '0x020202/2', openCloseSeconds: 0.05 };
 async function setup(t, config = {}, devices = [{ deviceId: '0x020202/2', remoteType: 'RFY', unitCode: 2 }]) {
   const { HomebridgeAPI } = await import('../node_modules/homebridge/dist/api.js');
@@ -94,4 +95,25 @@ test('shutdown rejects outstanding ACK wait and prevents queued transmission', a
 });
 test('invalid configuration fails before any serial initialization', async t => {
   for (const entry of [{ ...remote, deviceID: '0x0/2' }, { ...remote, deviceID: '0x020202/9' }, { ...remote, openCloseSeconds: -1 }]) await assert.rejects(setup(t, { rfyRemotes: [entry] }));
+});
+
+test('real rfxcom queue and response parser emit ACK/NAK on the connection, not the transmitter', async t => {
+  const f = await setup(t); await f.instance.didFinishLaunching();
+  const controller = f.instance.rfxtrx;
+  t.mock.method(controller, 'queueMessage', realQueueMessage);
+  controller.receiving = true;
+  let code = 0;
+  controller.serialport = {
+    isOpen: true,
+    write(buffer, callback) {
+      callback(null);
+      setImmediate(() => controller.parser.write(Buffer.from([4, 0x02, 0x01, buffer[3], code])));
+    }
+  };
+  assert.equal(typeof f.instance.rfy.on, 'undefined');
+  await f.instance.command('up', remote.deviceID);
+  code = 2;
+  await assert.rejects(f.instance.command('down', remote.deviceID), /transmission failed \(2\)/);
+  assert.equal(controller.listenerCount('response'), 0);
+  controller.TxQ.end();
 });
