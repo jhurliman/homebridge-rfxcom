@@ -7,6 +7,12 @@ Operate paired Somfy RTS/RFY blinds and awnings from Apple Home using an RFXCOM 
 
 Requires **Homebridge 2.4+ and Node 22, 24, or 26**. Uses `rfxcom` 2.6 and SerialPort 11 for RFY communication.
 
+## Maintainer wanted
+
+The current maintainer no longer has an RFXCOM transceiver and compatible motors and cannot test this integration against a live setup. Automated tests pass, but this release has not been validated on physical hardware. Compatibility reports and fixes from active users are welcome.
+
+If you use this integration and would like to take over maintenance and releases, [open an issue](https://github.com/jhurliman/homebridge-rfxcom/issues/new?title=Interested%20in%20maintaining%20this%20project) describing your setup and interest.
+
 ## What you need
 
 - An RFXCOM transceiver and firmware that support RFY transmission.
