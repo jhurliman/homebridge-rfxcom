@@ -1,8 +1,10 @@
 # Releasing homebridge-rfxcom
 
-1. Run `npm ci`, `npm test`, and `npm pack` on the supported Node versions. Check the archive’s entry point, UI schema, README, and license.
-2. Verify real USB initialization and paired-remote listing on supported transceiver firmware. Validate native bindings on relevant operating systems and CPU architectures, including ARM.
-3. Verify commands on a deliberately selected motor. A transceiver ACK confirms transmission, not physical completion.
-4. Review migration notes and publish only after the hardware checks pass.
+The maintainer no longer has the required account or hardware. Releases may proceed after automated checks, with the README and release notes explicitly stating that live compatibility is unverified. Do not describe simulated tests as hardware or service validation. Invite active users to test and take over maintenance.
 
-The automated suite uses real Homebridge services and the driver’s encoder, transmit queue, and response parser, but simulates the serial bytes. It does not establish real hardware compatibility.
+- Run `npm ci`, `npm test`, and `npm pack` against the published dependencies. Confirm supported Node/Homebridge versions, entry points, UI schema, documentation, and license.
+- Review migration notes and publish. Keep known compatibility issues open until an active user verifies a fix.
+
+## Community validation
+
+Verify USB initialization, paired-remote listing, native bindings on your OS/CPU, and commands on a deliberately selected motor. A transceiver ACK confirms transmission, not physical completion.
