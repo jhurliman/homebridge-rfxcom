@@ -49,6 +49,7 @@
     "config.schema.json",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "RELEASING.md"
   ]
 }

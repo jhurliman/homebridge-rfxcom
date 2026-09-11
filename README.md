@@ -5,7 +5,7 @@
 
 Operate paired Somfy RTS/RFY blinds and awnings from Apple Home using an RFXCOM USB transceiver. Each configured remote exposes **Up, Down, and Stop** command switches. Commands wait for the transceiver's response, and serial failures are returned to HomeKit.
 
-This branch prepares **2.0 for Homebridge 2.4+ and Node 22, 24, or 26**, using `rfxcom` 2.6 and SerialPort 11 instead of the obsolete SerialPort 4 stack. Check the npm badge for the published version before upgrading.
+Requires **Homebridge 2.4+ and Node 22, 24, or 26**. Uses `rfxcom` 2.6 and SerialPort 11 for RFY communication.
 
 ## What you need
 
@@ -77,7 +77,7 @@ npm test
 npm pack
 ```
 
-Eight tests use Homebridge's actual services and the current RFY command encoder, transmit queue, and response parser with simulated serial bytes. They cover empty configurations, ID normalization/cache reuse, ACK/NAK handling, automatic versus persistent switch state, shutdown, and validation. Tests never open a serial port or move a motor. Before publishing, verify serial initialization and paired-remote listing on real supported hardware; command checks should target a deliberately selected motor.
+Eight tests use Homebridge's actual services and the current RFY command encoder, transmit queue, and response parser with simulated serial bytes. They cover empty configurations, ID normalization/cache reuse, ACK/NAK handling, automatic versus persistent switch state, shutdown, and validation. Tests never open a serial port or move a motor. Maintainer release checks are documented in [RELEASING.md](RELEASING.md).
 
 ## License
 
